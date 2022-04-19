@@ -1,4 +1,4 @@
-game.StarterGui:SetCore("SendNotification", {Title = "Made By Kingver", Text = ".gg/HVvDqSwk", Icon = "", Duration = 20,})
+game.StarterGui:SetCore("SendNotification", {Title = "Made By Kingver", Text = ".gg/kJVNvfeka6", Icon = "", Duration = 20,})
  
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("kingver Untitled Hood Script", "DarkTheme")
