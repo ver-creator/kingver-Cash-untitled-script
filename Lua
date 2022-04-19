@@ -1,7 +1,7 @@
-game.StarterGui:SetCore("SendNotification", {Title = "Made By Kingver", Text = ".gg/HVvDqSwk", Icon = "", Duration = 10, Button1 = ""})
+game.StarterGui:SetCore("SendNotification", {Title = "Made By Kingver", Text = ".gg/HVvDqSwk", Icon = "", Duration = 20,})
  
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("kingver Custom Cash Script", "BloodTheme")
+local Window = Library.CreateLib("kingver Untitled Hood Script", "DarkTheme")
 local Tab = Window:NewTab("Cash")
 local Section = Tab:NewSection("Cash")
  
@@ -20,7 +20,7 @@ function Buy(Object)
     fireclickdetector(LockPicker.ClickDetector)
 end
  
-Buy("[SMG] - $750")
+Buy("[Revolver] - $1300")
  
 wait(0.5)
  
@@ -28,13 +28,13 @@ wait(0.5)
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]", --// reminder: [SMG] or [Revolver] works for any gun but i put it here so i can just copy and paste whenever i want to
+        Name = "[Revolver]", --// reminder: [SMG] or [Revolver] works for any gun but i put it here so i can just copy and paste whenever i want to
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = {Value = math.huge*9e9},
         MaxAmmo = {Value = 0},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 )
  
@@ -46,19 +46,140 @@ _G.Amount2 = 99999999999999999999999
 ---
  
 _G.Reset = 0 
+
+Section:NewButton("Fly (X)", "", function()
+    	local L_143_ = game.Players.LocalPlayer
+	local L_144_ = L_143_:GetMouse()
+	localplayer = L_143_
+	if workspace:FindFirstChild("Core") then
+		workspace.Core:Destroy()
+	end
+	local L_145_ = Instance.new("Part")
+	L_145_.Name = "Core"
+	L_145_.Size = Vector3.new(0.05, 0.05, 0.05)
+	spawn(function()
+		L_145_.Parent = workspace
+		local L_152_ = Instance.new("Weld", L_145_)
+		L_152_.Part0 = L_145_
+		L_152_.Part1 = localplayer.Character.LowerTorso
+		L_152_.C0 = CFrame.new(0, 0, 0)
+	end)
+	workspace:WaitForChild("Core")
+	local L_146_ = workspace.Core
+	flying = true
+	local L_147_ = 25
+	local L_148_ = {
+		a = false,
+		d = false,
+		w = false,
+		s = false
+	}
+	local L_149_
+	local L_150_
+	local function L_151_func()
+		local L_153_ = Instance.new("BodyPosition", L_146_)
+		local L_154_ = Instance.new("BodyGyro", L_146_)
+		L_153_.Name = "EPIXPOS"
+		L_153_.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+		L_153_.position = L_146_.Position
+		L_154_.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		L_154_.cframe = L_146_.CFrame
+		repeat
+			wait()
+			localplayer.Character.Humanoid.PlatformStand = true
+			local L_155_ = L_154_.cframe - L_154_.cframe.p + L_153_.position
+			if not L_148_.w and not L_148_.s and not L_148_.a and not L_148_.d then
+				L_147_ = 25
+			end
+			if L_148_.w then
+				L_155_ = L_155_ + workspace.CurrentCamera.CoordinateFrame.lookVector * L_147_
+				L_147_ = L_147_ + 0
+			end
+			if L_148_.s then
+				L_155_ = L_155_ - workspace.CurrentCamera.CoordinateFrame.lookVector * L_147_
+				L_147_ = L_147_ + 0
+			end
+			if L_148_.d then
+				L_155_ = L_155_ * CFrame.new(L_147_, 0, 0)
+				L_147_ = L_147_ + 0
+			end
+			if L_148_.a then
+				L_155_ = L_155_ * CFrame.new(-L_147_, 0, 0)
+				L_147_ = L_147_ + 0
+			end
+			if L_147_ > 10 then
+				L_147_ = 25
+			end
+			L_153_.position = L_155_.p
+			if L_148_.w then
+				L_154_.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad(L_147_ * 0), 0, 0)
+			elseif L_148_.s then
+				L_154_.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(math.rad(L_147_ * 0), 0, 0)
+			else
+				L_154_.cframe = workspace.CurrentCamera.CoordinateFrame
+			end
+		until flying == false
+		if L_154_ then
+			L_154_:Destroy()
+		end
+		if L_153_ then
+			L_153_:Destroy()
+		end
+		flying = false
+		localplayer.Character.Humanoid.PlatformStand = false
+		L_147_ = 25
+	end
+	L_149_ = L_144_.KeyDown:connect(function(L_156_arg0)
+		if not L_146_ or not L_146_.Parent then
+			flying = false
+			L_149_:disconnect()
+			L_150_:disconnect()
+			return
+		end
+		if L_156_arg0 == "w" then
+			L_148_.w = true
+		elseif L_156_arg0 == "s" then
+			L_148_.s = true
+		elseif L_156_arg0 == "a" then
+			L_148_.a = true
+		elseif L_156_arg0 == "d" then
+			L_148_.d = true
+		elseif L_156_arg0 == "x" then
+			if flying == true then
+				flying = false
+			else
+				flying = true
+				L_151_func()
+			end
+		end
+	end)
+	L_150_ = L_144_.KeyUp:connect(function(L_157_arg0)
+		if L_157_arg0 == "w" then
+			L_148_.w = false
+		elseif L_157_arg0 == "s" then
+			L_148_.s = false
+		elseif L_157_arg0 == "a" then
+			L_148_.a = false
+		elseif L_157_arg0 == "d" then
+			L_148_.d = false
+		end
+	end)
+	L_151_func()
+end)
+
  
 Section:NewButton("Give MAX Cash", "", function()
  
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Currency,
         MaxAmmo = {Value = _G.Amount},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -68,13 +189,13 @@ Section:NewButton("Reset Cash", "", function()
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Currency,
         MaxAmmo = {Value = _G.Reset},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -85,13 +206,13 @@ Section:NewButton("Give Negative Cash", "", function()
                 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Currency,
         MaxAmmo = {Value = _G.Amount2},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -108,13 +229,13 @@ Section:NewButton("Give Max wanted", "", function()
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].leaderstats.Wanted,
         MaxAmmo = {Value = _G.Amount2},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -124,13 +245,13 @@ Section:NewButton("Reset Wanted", "", function()
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].leaderstats.Wanted, --game:GetService("Players").SEDFUIY75W34UIHJ.leaderstats.Wanted
         MaxAmmo = {Value = _G.Reset},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -147,13 +268,13 @@ Section:NewButton("Skinny (RESET)", "", function()
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Information.MuscleInformation,
         MaxAmmo = {Value = -10000   },
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -163,13 +284,13 @@ Section:NewButton("Super Skinny (RESET)", "", function()
 game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
     "Reload",
     {
-        Name = "[SMG]",
+        Name = "[Revolver]",
         Parent = Game.Players.LocalPlayer.Backpack,
         ClassName = "Tool",
         Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Information.MuscleInformation,
         MaxAmmo = {Value = -999999999999999999999999999999999999999999999999999999999999999999999999999},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
     }
 ) 
 end)
@@ -181,13 +302,13 @@ Section:NewButton("Huge (RESET)", "", function()
     game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
         "Reload",
         {
-            Name = "[SMG]",
+            Name = "[Revolver]",
             Parent = Game.Players.LocalPlayer.Backpack,
             ClassName = "Tool",
             Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Information.MuscleInformation,
             MaxAmmo = {Value = 999999},
-            GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-            Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+            GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+            Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
         }
     ) 
     end)
@@ -199,13 +320,13 @@ Section:NewButton("Huge (RESET)", "", function()
         game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
             "Reload",
             {
-                Name = "[SMG]",
+                Name = "[Revolver]",
                 Parent = Game.Players.LocalPlayer.Backpack,
                 ClassName = "Tool",
                 Ammo = game:GetService("Players")[_G.Aiden].DataFolder.Information.MuscleInformation,
                 MaxAmmo = {Value = -0.5},
-                GunScript = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].GunScript,
-                Handle = game:GetService("Players").LocalPlayer.Backpack["[SMG]"].Handle
+                GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
+                Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
             }
         ) 
         end)
@@ -213,4 +334,12 @@ Section:NewButton("Huge (RESET)", "", function()
 Section:NewTextBox("Username", "the guy who receive cash", function(value)
     _G.Aiden = value
 end) 
- 
+
+
+local Tab = Window:NewTab("Toggle UI Keybind")
+local Section = Tab:NewSection("Toggle UI Keybind")
+
+
+Section:NewKeybind("Toggle UI Keybind", "KeybindInfo", Enum.KeyCode.V, function()
+	Library:ToggleUI()
+end)
