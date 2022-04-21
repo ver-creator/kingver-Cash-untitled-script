@@ -420,22 +420,6 @@ Section:NewButton("Big Head", "", function()
 ) 
 end)
 
-Section:NewButton("Reset Big Head", "", function()
-    
-                game.ReplicatedStorage:FindFirstChild(".gg/untitledhood"):FireServer(
-    "Reload",
-    {
-        Name = "[Revolver]",
-        Parent = Game.Players.LocalPlayer.Backpack,
-        ClassName = "Tool",
-        Ammo = game:GetService("Players")[_G.Aiden].Character.Humanoid.HeadScale,
-        MaxAmmo = {Value = 1},
-        GunScript = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].GunScript,
-        Handle = game:GetService("Players").LocalPlayer.Backpack["[Revolver]"].Handle
-    }
-) 
-end)	
-
 local Tab = Window:NewTab("Toggle UI Keybind")
 local Section = Tab:NewSection("Toggle UI Keybind")
 
